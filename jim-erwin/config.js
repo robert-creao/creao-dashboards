@@ -11,7 +11,7 @@ window.DASHBOARD_CONFIG = {
     "4": "<span class=\"badge\">Paid</span><strong>Mar 16\u201331, 2026:</strong> Partner payout of <strong>$1,421.34</strong> sent Apr 1, 2026. Continued scaling with measured daily budget increases. Hit the projected $1,000+ bi-weekly distribution target with room to spare.",
     "5": "<span class=\"badge\">Paid</span><strong>Apr 1\u201315, 2026:</strong> Partner payout of <strong>$1,527.41</strong> sent Apr 15, 2026. Highest cycle to date \u2014 efficiency benchmarks holding steady; ROAS continues to improve with creative refinement.",
     "6": "<span class=\"badge\">Paid</span><strong>Apr 16\u201330, 2026:</strong> Partner payout of <strong>$924.19</strong>. Mid-period our Meta ad account was flagged for political-content review and ad delivery was paused for 7 days (Apr 18\u201324). The flag has since been resolved \u2014 not a major issue, but it noticeably slowed sales for that week and dampened volume through the rest of the month while we rebuilt audience signal. Operations are back to normal heading into the next cycle.",
-    "7": "<span class=\"badge warn\">In Progress</span><strong>May 1\u201315, 2026:</strong> Current cycle in progress. Tracking toward a projected partner payout of <strong>$874.00</strong> with the Meta ad account fully restored and delivery back to normal. Daily numbers update as the period progresses; final payout confirmed at end of period."
+    "7": "<span class=\"badge warn\">In Progress</span><strong>May 1\u201315, 2026:</strong> Current cycle in progress. Meta ad account fully restored and delivery back to normal. Daily numbers update as the period progresses; partner payout will be confirmed once the period closes."
   }
 };
 
@@ -1367,44 +1367,5 @@ window.DASHBOARD_DATA = [
     "partner_share_target": 874.0,
     "day_num": 15,
     "cum_payout": 874.0
-  },
-  {
-    "date": "2026-05-16",
-    "revenue": 920.81,
-    "adspend": 446.32,
-    "cog": 322.28,
-    "fees": 47.42,
-    "net_profit": 104.79,
-    "period_num": 8,
-    "period_label": "May 16-30",
-    "partner_share_target": 874.0,
-    "day_num": 1,
-    "cum_payout": 52.4
-  },
-  {
-    "date": "2026-05-17",
-    "revenue": 951.54,
-    "adspend": 461.21,
-    "cog": 333.04,
-    "fees": 49.0,
-    "net_profit": 108.29,
-    "period_num": 8,
-    "period_label": "May 16-30",
-    "partner_share_target": 874.0,
-    "day_num": 2,
-    "cum_payout": 106.54
-  },
-  {
-    "date": "2026-05-18",
-    "revenue": 982.18,
-    "adspend": 476.06,
-    "cog": 343.76,
-    "fees": 50.58,
-    "net_profit": 111.78,
-    "period_num": 8,
-    "period_label": "May 16-30",
-    "partner_share_target": 874.0,
-    "day_num": 3,
-    "cum_payout": 162.43
   }
 ];

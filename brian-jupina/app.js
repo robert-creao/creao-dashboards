@@ -190,10 +190,20 @@ function updateKPIs() {
   const asOfStr = document.getElementById('as-of').value;
   const asOf = asOfStr ? new Date(asOfStr + 'T23:59:59') : new Date();
 
+  // Helper: classify a period (by num) relative to asOf as current / upcoming / completed.
+  function classifyPeriod(periodNum) {
+    const rs = RAW.filter(r => r.periodNum === periodNum);
+    if (!rs.length) return 'none';
+    const start = rs[0].date, end = rs[rs.length - 1].date;
+    if (asOf < start) return 'upcoming';
+    if (asOf > end) return 'completed';
+    return 'current';
+  }
+
   let activeRow = null, activeState = 'current';
   if (periodSel !== 'all') {
     activeRow = RAW.find(r => String(r.periodNum) === periodSel) || null;
-    activeState = activeRow ? 'filtered' : 'none';
+    activeState = activeRow ? classifyPeriod(activeRow.periodNum) : 'none';
   } else {
     const periods = [...new Set(RAW.map(r => r.periodNum))].sort((a,b) => a - b);
     for (const p of periods) {
@@ -217,7 +227,12 @@ function updateKPIs() {
   document.getElementById('kpi-revenue').textContent = fmtUSD.format(totalRev);
   document.getElementById('kpi-adspend').textContent = fmtUSD.format(totalAds);
   document.getElementById('kpi-netprofit').textContent = fmtUSD.format(totalNP);
-  document.getElementById('kpi-target').textContent = fmtUSD.format(target);
+
+  // Hide the payout target while a period is active — only show it once the period
+  // has closed (completed). For active/current and upcoming periods the final payout
+  // hasn't been determined yet, so showing a target is misleading.
+  const isActiveOrUpcoming = activeState === 'current' || activeState === 'upcoming';
+  document.getElementById('kpi-target').textContent = isActiveOrUpcoming ? '—' : fmtUSD.format(target);
 
   const avgDaily = FILTERED.length ? totalRev / FILTERED.length : 0;
   document.getElementById('kpi-sales-sub').textContent  = FILTERED.length ? `Avg ${fmtUSD.format(avgDaily)} / day` : '—';
@@ -226,7 +241,8 @@ function updateKPIs() {
   document.getElementById('kpi-netprofit-sub').textContent = activeRow ? `Partner cum. ${fmtUSD.format(cumToDate)} this period` : '—';
 
   let stateBadge = '';
-  if (activeState === 'upcoming') stateBadge = ' · upcoming';
+  if (activeState === 'current') stateBadge = ' · finalized after period closes';
+  else if (activeState === 'upcoming') stateBadge = ' · upcoming';
   else if (activeState === 'completed') stateBadge = ' · completed';
   document.getElementById('kpi-target-sub').textContent = targetLabel + stateBadge;
 }
