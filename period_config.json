@@ -1,0 +1,26 @@
+{
+  "active_period": {
+    "num": 7,
+    "label": "May 1\u201315",
+    "start_date": "2026-05-01",
+    "end_date": "2026-05-15",
+    "partner_share": 874.0,
+    "weights_profile": "healthy",
+    "release_mode": "backfilled"
+  },
+  "clients": {
+    "brian-jupina": {
+      "name": "Brian Jupina",
+      "sheet_id": "1THwMr-ouGyq04K4QvMuDPmuHOYju9p55UIfeB3MuexA"
+    },
+    "nelson-bendeck": {
+      "name": "Nelson Bendeck",
+      "sheet_id": "1-iqt1WfepzQ6rohr6qJI5_iEnOxDC4A8gMxhh1op2-M"
+    },
+    "jim-erwin": {
+      "name": "Jim Erwin",
+      "sheet_id": "14iYPmfJXwYfKOc7ROdAZmOw9wdm-21VJrZSfaK5PI7Y"
+    }
+  },
+  "_notes": "Edit active_period to roll over to a new biweekly cycle. release_mode: 'daily' = auto-extend visible day each morning; 'backfilled' = full period shown, action no-ops. Set to 'daily' when starting a new period."
+}

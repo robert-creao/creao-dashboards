@@ -596,5 +596,44 @@ window.DASHBOARD_DATA = [
     "partner_share_target": 874.0,
     "day_num": 15,
     "cum_payout": 874.0
+  },
+  {
+    "date": "2026-05-16",
+    "revenue": 920.81,
+    "adspend": 446.32,
+    "cog": 322.28,
+    "fees": 47.42,
+    "net_profit": 104.79,
+    "period_num": 8,
+    "period_label": "May 16-30",
+    "partner_share_target": 874.0,
+    "day_num": 1,
+    "cum_payout": 52.4
+  },
+  {
+    "date": "2026-05-17",
+    "revenue": 951.54,
+    "adspend": 461.21,
+    "cog": 333.04,
+    "fees": 49.0,
+    "net_profit": 108.29,
+    "period_num": 8,
+    "period_label": "May 16-30",
+    "partner_share_target": 874.0,
+    "day_num": 2,
+    "cum_payout": 106.54
+  },
+  {
+    "date": "2026-05-18",
+    "revenue": 982.18,
+    "adspend": 476.06,
+    "cog": 343.76,
+    "fees": 50.58,
+    "net_profit": 111.78,
+    "period_num": 8,
+    "period_label": "May 16-30",
+    "partner_share_target": 874.0,
+    "day_num": 3,
+    "cum_payout": 162.43
   }
 ];
