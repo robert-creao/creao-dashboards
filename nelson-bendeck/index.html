@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Creao · Profit Distribution Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css" />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231E1B2E'/><path d='M9 11h11M9 16h7M9 21h11' stroke='%2320808D' stroke-width='2.4' stroke-linecap='round'/></svg>" />
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 36 36" aria-hidden="true">
+        <rect width="36" height="36" rx="8" fill="#20808D"/>
+        <path d="M10 12h13M10 18h9M10 24h13" stroke="#FFC553" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h1>Creao · Profit Distribution Dashboard</h1>
+        <p class="tag">Bi-weekly partner payouts · Day-by-day breakdown</p>
+      </div>
+    </div>
+    <div class="status" id="reveal-status">—</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="controls" aria-label="Filters">
+    <label class="ctrl">
+      <span>Period</span>
+      <select id="period-filter">
+        <option value="all">All periods</option>
+      </select>
+    </label>
+    <label class="ctrl">
+      <span>View as of</span>
+      <input type="date" id="as-of" />
+    </label>
+    <div class="ctrl view-toggle" role="tablist" aria-label="View granularity">
+      <span>View</span>
+      <div class="seg">
+        <button type="button" class="seg-btn active" data-view="daily" role="tab" aria-selected="true">Daily</button>
+        <button type="button" class="seg-btn" data-view="weekly" role="tab" aria-selected="false">Weekly</button>
+      </div>
+    </div>
+    <button class="reset" id="reset-asof" type="button">Reset to today</button>
+  </section>
+
+  <section class="kpis kpis-5" aria-label="Headline metrics">
+    <article class="kpi">
+      <div class="kpi-label">Total Sales</div>
+      <div class="kpi-value" id="kpi-sales">$0.00</div>
+      <div class="kpi-sub" id="kpi-sales-sub">—</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value" id="kpi-revenue">$0.00</div>
+      <div class="kpi-sub" id="kpi-revenue-sub">—</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Total Adspend</div>
+      <div class="kpi-value" id="kpi-adspend">$0.00</div>
+      <div class="kpi-sub" id="kpi-adspend-sub">—</div>
+    </article>
+    <article class="kpi accent">
+      <div class="kpi-label">Net Profit (to date)</div>
+      <div class="kpi-value" id="kpi-netprofit">$0.00</div>
+      <div class="kpi-sub" id="kpi-netprofit-sub">—</div>
+    </article>
+    <article class="kpi gold">
+      <div class="kpi-label">Partner Payout · Target</div>
+      <div class="kpi-value" id="kpi-target">$0.00</div>
+      <div class="kpi-sub" id="kpi-target-sub">—</div>
+    </article>
+  </section>
+
+  <section class="card notes-card" id="notes-card">
+    <div class="card-head">
+      <h2>Period Notes</h2>
+      <p class="hint" id="notes-hint">Status &amp; commentary for the selected period.</p>
+    </div>
+    <div class="notes-body" id="notes-body">—</div>
+  </section>
+
+  <section class="card chart-card">
+    <div class="card-head">
+      <h2 id="chart-title">Daily Revenue, Adspend &amp; Net Profit</h2>
+      <p class="hint" id="chart-hint">Updates daily — only days that have already arrived are shown.</p>
+    </div>
+    <div class="chart-wrap"><canvas id="line-chart"></canvas></div>
+  </section>
+
+  <div class="grid-2">
+    <section class="card">
+      <div class="card-head">
+        <h2>Cumulative Partner Payout</h2>
+        <p class="hint">Builds toward the period target each cycle.</p>
+      </div>
+      <div class="chart-wrap"><canvas id="area-chart"></canvas></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2 id="table-title">Day-by-Day Breakdown</h2>
+        <p class="hint" id="table-hint">New rows unlock automatically each day.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th id="th-date">Date</th>
+              <th class="num">Revenue</th>
+              <th class="num">Adspend</th>
+              <th class="num">Net Profit</th>
+              <th class="num">Cum. Payout</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    Days unlock progressively as the period advances.
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+        integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+        crossorigin="anonymous"></script>
+<script src="./config.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

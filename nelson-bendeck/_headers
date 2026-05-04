@@ -1,0 +1,10 @@
+/*
+  Cache-Control: public, max-age=300
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://docs.google.com https://*.googleusercontent.com; frame-ancestors 'self'
+
+/data.csv
+  Cache-Control: public, max-age=60
+  Content-Type: text/csv; charset=utf-8
