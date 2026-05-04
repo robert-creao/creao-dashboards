@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Creao — Client Dashboards</title>
+  <title>Creao</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -21,10 +21,7 @@
       justify-content: center;
       padding: 2rem;
     }
-    .wrap {
-      max-width: 640px;
-      width: 100%;
-    }
+    .wrap { max-width: 640px; width: 100%; }
     .brand {
       display: flex;
       align-items: center;
@@ -59,10 +56,65 @@
       font-size: 1rem;
       margin-bottom: 2.5rem;
     }
-    .clients {
-      display: grid;
-      gap: 0.75rem;
+
+    /* Lock screen */
+    .lock-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 380px;
     }
+    .lock-form label {
+      font-size: 0.85rem;
+      color: #a1a1aa;
+      font-weight: 500;
+    }
+    .lock-form input[type="password"] {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      border-radius: 10px;
+      color: #f5f5f5;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.15s ease;
+    }
+    .lock-form input[type="password"]:focus {
+      outline: none;
+      border-color: #14b8a6;
+    }
+    .lock-form button {
+      padding: 0.875rem 1.25rem;
+      background: #14b8a6;
+      color: #052e2b;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .lock-form button:hover { background: #0d9488; }
+    .lock-form button:active { transform: scale(0.98); }
+    .lock-form button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .lock-error {
+      color: #f87171;
+      font-size: 0.875rem;
+      min-height: 1.25rem;
+    }
+
+    /* Client list (hidden until unlocked) */
+    .clients {
+      display: none;
+      gap: 0.75rem;
+      flex-direction: column;
+    }
+    .clients.visible { display: flex; }
     .client-card {
       display: flex;
       align-items: center;
@@ -81,10 +133,7 @@
       transform: translateY(-1px);
     }
     .client-info { display: flex; flex-direction: column; gap: 0.25rem; }
-    .client-name {
-      font-weight: 600;
-      font-size: 1rem;
-    }
+    .client-name { font-weight: 600; font-size: 1rem; }
     .client-path {
       font-family: 'SF Mono', Menlo, monospace;
       font-size: 0.8rem;
@@ -104,6 +153,20 @@
       color: #52525b;
       text-align: center;
     }
+    .lock-section, .unlocked-section { display: none; }
+    .lock-section.visible, .unlocked-section.visible { display: block; }
+    .signout {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #71717a;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      font-family: inherit;
+      padding: 0;
+    }
+    .signout:hover { color: #f5f5f5; }
   </style>
 </head>
 <body>
@@ -112,32 +175,145 @@
       <div class="brand-mark">C</div>
       <div class="brand-name">Creao</div>
     </div>
-    <h1>Client Dashboards</h1>
-    <p class="subtitle">Performance reporting and payout tracking for partner accounts.</p>
-    <div class="clients">
-      <a href="./brian-jupina/" class="client-card">
-        <div class="client-info">
-          <div class="client-name">Brian Jupina</div>
-          <div class="client-path">app.creao.co/brian-jupina</div>
-        </div>
-        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="./nelson-bendeck/" class="client-card">
-        <div class="client-info">
-          <div class="client-name">Nelson Bendeck</div>
-          <div class="client-path">app.creao.co/nelson-bendeck</div>
-        </div>
-        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="./jim-erwin/" class="client-card">
-        <div class="client-info">
-          <div class="client-name">Jim Erwin</div>
-          <div class="client-path">app.creao.co/jim-erwin</div>
-        </div>
-        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
+
+    <!-- LOCK SCREEN -->
+    <section class="lock-section visible" id="lockSection">
+      <h1>Restricted</h1>
+      <p class="subtitle">Enter the access password to continue.</p>
+      <form class="lock-form" id="lockForm" autocomplete="off">
+        <label for="pw">Password</label>
+        <input type="password" id="pw" name="pw" autocomplete="off" required />
+        <button type="submit" id="submitBtn">Unlock</button>
+        <div class="lock-error" id="errMsg" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- UNLOCKED CONTENT -->
+    <section class="unlocked-section" id="unlockedSection">
+      <h1>Client Dashboards</h1>
+      <p class="subtitle">Performance reporting and payout tracking for partner accounts.</p>
+      <div class="clients visible" id="clientList"></div>
+      <button class="signout" id="signoutBtn" type="button">Sign out</button>
+    </section>
+
     <div class="footer">© Creao</div>
   </div>
+
+  <script>
+    // === Encrypted payload (AES-GCM, PBKDF2-SHA256 250k iters) ===
+    const ENC = {
+      salt: "Kt22nZgv9mcszds5sNS5pg==",
+      iv: "uv7c5bNKk0azf/4Q",
+      ct: "dkyPbt1vkjG8nssywyrGdVW+VwEirnwNzJcdxX8Qxl+zWTlTgb/OJPbTAqErFC/ZAvkplRoSbepOMyL0BVF37Rbv7UueYHiWhEF7yW2leScuWKAsU3QpCTocw2Q3C7dDv0CbWW06ErNL5GS8Jme3UmJESQbKjGM2+DCClRyuKkOvcIhNlypbZY5+7JE96gVFi9Cqe+rpcF7OTyuYUubePXaG2W2Vdcta2HKJQJNYgWNY",
+      iter: 250000
+    };
+    const STORAGE_KEY = "creao_unlock_v1";
+
+    const $ = (id) => document.getElementById(id);
+
+    function b64ToBytes(b64) {
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    }
+
+    async function deriveKey(password, saltBytes) {
+      const enc = new TextEncoder();
+      const baseKey = await crypto.subtle.importKey(
+        "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+      );
+      return crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: saltBytes, iterations: ENC.iter, hash: "SHA-256" },
+        baseKey,
+        { name: "AES-GCM", length: 256 },
+        false,
+        ["decrypt"]
+      );
+    }
+
+    async function tryUnlock(password) {
+      const salt = b64ToBytes(ENC.salt);
+      const iv = b64ToBytes(ENC.iv);
+      const ct = b64ToBytes(ENC.ct);
+      const key = await deriveKey(password, salt);
+      const ptBuf = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, ct);
+      const text = new TextDecoder().decode(ptBuf);
+      return JSON.parse(text);
+    }
+
+    function renderClients(payload) {
+      const list = $("clientList");
+      list.innerHTML = "";
+      payload.clients.forEach(c => {
+        const a = document.createElement("a");
+        a.href = `./${c.slug}/`;
+        a.className = "client-card";
+        a.innerHTML = `
+          <div class="client-info">
+            <div class="client-name">${c.name}</div>
+            <div class="client-path">app.creao.co/${c.slug}</div>
+          </div>
+          <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+        list.appendChild(a);
+      });
+    }
+
+    function showUnlocked(payload) {
+      $("lockSection").classList.remove("visible");
+      $("unlockedSection").classList.add("visible");
+      renderClients(payload);
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const pw = $("pw").value;
+      const btn = $("submitBtn");
+      const err = $("errMsg");
+      err.textContent = "";
+      btn.disabled = true;
+      btn.textContent = "Unlocking…";
+      try {
+        const payload = await tryUnlock(pw);
+        sessionStorage.setItem(STORAGE_KEY, pw);
+        showUnlocked(payload);
+      } catch (ex) {
+        err.textContent = "Incorrect password. Try again.";
+        $("pw").value = "";
+        $("pw").focus();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Unlock";
+      }
+    }
+
+    async function tryRestore() {
+      const pw = sessionStorage.getItem(STORAGE_KEY);
+      if (!pw) return false;
+      try {
+        const payload = await tryUnlock(pw);
+        showUnlocked(payload);
+        return true;
+      } catch {
+        sessionStorage.removeItem(STORAGE_KEY);
+        return false;
+      }
+    }
+
+    function signOut() {
+      sessionStorage.removeItem(STORAGE_KEY);
+      $("unlockedSection").classList.remove("visible");
+      $("lockSection").classList.add("visible");
+      $("pw").value = "";
+      $("pw").focus();
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      $("lockForm").addEventListener("submit", handleSubmit);
+      $("signoutBtn").addEventListener("click", signOut);
+      const restored = await tryRestore();
+      if (!restored) $("pw").focus();
+    });
+  </script>
 </body>
 </html>
