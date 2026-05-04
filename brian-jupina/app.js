@@ -172,10 +172,41 @@ function applyFilters() {
   });
   WEEKLY = buildWeekly(FILTERED);
 
-  const allTodayCount = RAW.filter(r => r.date <= asOf).length;
-  const totalCount = RAW.length;
-  document.getElementById('reveal-status').textContent =
-    `${allTodayCount} of ${totalCount} days unlocked · as of ${fmtDateLong(asOf)}`;
+  // Status line: show days remaining until the current period ends, or
+  // a "closed" state for completed periods. Falls back gracefully when no
+  // active period can be identified.
+  const periodSelStatus = document.getElementById('period-filter').value;
+  let activeNumStatus = null;
+  if (periodSelStatus !== 'all') {
+    activeNumStatus = parseInt(periodSelStatus, 10);
+  } else {
+    const periodsStatus = [...new Set(RAW.map(r => r.periodNum))].sort((a,b) => a - b);
+    for (const p of periodsStatus) {
+      const rs = RAW.filter(r => r.periodNum === p);
+      const start = rs[0].date, end = rs[rs.length - 1].date;
+      if (asOf >= start && asOf <= end) { activeNumStatus = p; break; }
+      if (asOf < start) { activeNumStatus = p; break; }
+      activeNumStatus = p;
+    }
+  }
+  let statusText = `as of ${fmtDateLong(asOf)}`;
+  if (activeNumStatus !== null) {
+    const rs = RAW.filter(r => r.periodNum === activeNumStatus);
+    if (rs.length) {
+      const start = rs[0].date, end = rs[rs.length - 1].date;
+      const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      if (asOf < start) {
+        const days = Math.ceil((start - asOf) / MS_PER_DAY);
+        statusText = `${rs[0].periodLabel} starts in ${days} day${days === 1 ? '' : 's'} · as of ${fmtDateLong(asOf)}`;
+      } else if (asOf > end) {
+        statusText = `${rs[0].periodLabel} closed · as of ${fmtDateLong(asOf)}`;
+      } else {
+        const days = Math.ceil((end - asOf) / MS_PER_DAY);
+        statusText = `${days} day${days === 1 ? '' : 's'} until period end · as of ${fmtDateLong(asOf)}`;
+      }
+    }
+  }
+  document.getElementById('reveal-status').textContent = statusText;
 }
 
 function sum(arr, key) { return arr.reduce((a,r) => a + r[key], 0); }
