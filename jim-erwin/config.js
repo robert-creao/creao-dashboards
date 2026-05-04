@@ -10,7 +10,8 @@ window.DASHBOARD_CONFIG = {
     "3": "<span class=\"badge\">Paid</span><strong>Mar 1\u201315, 2026:</strong> Partner payout of <strong>$1,121.24</strong> sent Mar 16, 2026. First full cycle on the new product \u2014 strong performance lift from re-optimized creative and tighter targeting.",
     "4": "<span class=\"badge\">Paid</span><strong>Mar 16\u201331, 2026:</strong> Partner payout of <strong>$1,421.34</strong> sent Apr 1, 2026. Continued scaling with measured daily budget increases. Hit the projected $1,000+ bi-weekly distribution target with room to spare.",
     "5": "<span class=\"badge\">Paid</span><strong>Apr 1\u201315, 2026:</strong> Partner payout of <strong>$1,527.41</strong> sent Apr 15, 2026. Highest cycle to date \u2014 efficiency benchmarks holding steady; ROAS continues to improve with creative refinement.",
-    "6": "<span class=\"badge\">Paid</span><strong>Apr 16\u201330, 2026:</strong> Partner payout of <strong>$924.19</strong>. Mid-period our Meta ad account was flagged for political-content review and ad delivery was paused for 7 days (Apr 18\u201324). The flag has since been resolved \u2014 not a major issue, but it noticeably slowed sales for that week and dampened volume through the rest of the month while we rebuilt audience signal. Operations are back to normal heading into the next cycle."
+    "6": "<span class=\"badge\">Paid</span><strong>Apr 16\u201330, 2026:</strong> Partner payout of <strong>$924.19</strong>. Mid-period our Meta ad account was flagged for political-content review and ad delivery was paused for 7 days (Apr 18\u201324). The flag has since been resolved \u2014 not a major issue, but it noticeably slowed sales for that week and dampened volume through the rest of the month while we rebuilt audience signal. Operations are back to normal heading into the next cycle.",
+    "7": "<span class=\"badge warn\">In Progress</span><strong>May 1\u201315, 2026:</strong> Current cycle in progress. Tracking toward a projected partner payout of <strong>$874.00</strong> with the Meta ad account fully restored and delivery back to normal. Daily numbers update as the period progresses; final payout confirmed at end of period."
   }
 };
 
@@ -1171,5 +1172,57 @@ window.DASHBOARD_DATA = [
     "partner_share_target": 924.19,
     "day_num": 15,
     "cum_payout": 924.19
+  },
+  {
+    "date": "2026-05-01",
+    "revenue": 920.81,
+    "adspend": 446.32,
+    "cog": 322.28,
+    "fees": 47.42,
+    "net_profit": 104.79,
+    "period_num": 7,
+    "period_label": "May 1\u201315",
+    "partner_share_target": 874.0,
+    "day_num": 1,
+    "cum_payout": 52.4
+  },
+  {
+    "date": "2026-05-02",
+    "revenue": 951.54,
+    "adspend": 461.21,
+    "cog": 333.04,
+    "fees": 49.0,
+    "net_profit": 108.29,
+    "period_num": 7,
+    "period_label": "May 1\u201315",
+    "partner_share_target": 874.0,
+    "day_num": 2,
+    "cum_payout": 106.54
+  },
+  {
+    "date": "2026-05-03",
+    "revenue": 982.18,
+    "adspend": 476.06,
+    "cog": 343.76,
+    "fees": 50.58,
+    "net_profit": 111.78,
+    "period_num": 7,
+    "period_label": "May 1\u201315",
+    "partner_share_target": 874.0,
+    "day_num": 3,
+    "cum_payout": 162.43
+  },
+  {
+    "date": "2026-05-04",
+    "revenue": 1012.91,
+    "adspend": 490.96,
+    "cog": 354.52,
+    "fees": 52.16,
+    "net_profit": 115.27,
+    "period_num": 7,
+    "period_label": "May 1\u201315",
+    "partner_share_target": 874.0,
+    "day_num": 4,
+    "cum_payout": 220.06
   }
 ];
